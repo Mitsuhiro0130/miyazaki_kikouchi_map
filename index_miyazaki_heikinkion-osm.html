@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web-heikinkionzu.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>月ごとの平均気温分布（宮崎県）</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/miyazakikikouchi_0.js"></script>
+<!--気温スタイルの読み込み-->
+        <script src="style/heikinkion/style_heikinkion_00.js"></script>
+<!--ポップアップスタイルの読み込み-->
+        <script src="style/heikinkion/pop_heikinkion_00.js"></script>
+        <script>
+//OSM地図設定↓
+var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[31.322286476,129.875276013],[32.875972526,132.713808054]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+        }
+//OSM地図設定↑
+            //月ごとデータの地図表示設定
+            //1月
+            var jan = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_017'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_01,
+            });
+            //2月
+            var feb = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_020'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_02,
+            });
+            //3月
+            var mar = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_023'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_03,
+            });
+            //4月
+            var apr = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_026'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_04,
+            });
+            //5月
+            var may = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_029'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_05,
+            });
+            //6月
+            var jun = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_032'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_06,
+            });
+            //7月
+            var jul = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_035'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_07,
+            });
+            //8月
+            var aug = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_038'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_08,
+            });
+            //9月
+            var sep = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_041'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_09,
+            });
+            //10月
+            var oct = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_044'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_10,
+            });
+            //11月
+            var nov = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_047'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_11,
+            });
+            //12月
+            var dec = new L.geoJson(json_miyazakikikouchi_0, {
+                style:function (feature) {
+                    var temp = feature.properties['G02_050'];
+                    return style_heikinkion_00 (temp)
+                },
+                onEachFeature: pop_heikinkion_12,
+            });
+//月選択ボタンの設定
+        var overlays = {
+            "1月": jan,"2月": feb,"3月": mar,"4月": apr,"5月": may,"6月": jun,
+            "7月": jul,"8月": aug,"9月": sep,"10月": oct,"11月": nov,"12月": dec
+        };
+        L.control.layers(overlays,null,{collapsed:false} ).addTo(map);
+//凡例の設定
+        L.Control.Hanrei = L.Control.extend({
+            onAdd: function(map) {
+                var div = L.DomUtil.create('div');
+                legend = '<table bgcolor="#FFFFFF"><tr><td colspan="2">平均気温（℃）</td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/01 under -5.png"></td><td> -5より低い</td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/02 -5 - 0.png"></td><td> -5℃ ～ 0℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/03 0 - 5.png"></td><td> 0℃ ～ 5℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/04 5 - 10.png"></td><td> 5℃ ～ 10℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/05 10 - 15.png"></td><td> 10℃ ～ 15℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/06 15 - 20.png"></td><td> 15℃ ～ 20℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/07 20 - 25.png"></td><td> 20℃ ～ 25℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/08 25 - 30.png"></td><td> 25℃ ～ 30℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/09 30 - 35.png"></td><td> 30℃ ～ 35℃ </td></tr>\
+                    <tr><td style="text-align: center;"><img src="legend/heikinkion/10 over 35.png"></td><td> 35℃超 </td></tr>\
+                    </table>';
+                div.innerHTML = legend;
+                return div;
+                },
+            onRemove: function(map) {}
+        });
+        L.control.Hanrei = function(opts) {
+            return new L.Control.Hanrei(opts);
+            }
+        L.control.Hanrei({ position: 'bottomright' }).addTo(map);
+        function style_miyazakikikouchi_0_0() {
+            return {
+                pane: 'pane_miyazakikikouchi_0',
+                opacity: 0,
+                /*color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,*/
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_miyazakikikouchi_0');
+        map.getPane('pane_miyazakikikouchi_0').style.zIndex = 400;
+        map.getPane('pane_miyazakikikouchi_0').style['mix-blend-mode'] = 'normal';
+        var layer_miyazakikikouchi_0 = new L.geoJson(json_miyazakikikouchi_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_miyazakikikouchi_0',
+//            onEachFeature: pop_miyazakikikouchi_0,
+            style: style_miyazakikikouchi_0_0,
+        });
+        bounds_group.addLayer(layer_miyazakikikouchi_0);
+        map.addLayer(layer_miyazakikikouchi_0);
+//        var baseMaps = {};legend/miyazakikikouchi
+        </script>
+    </body>
+</html>
